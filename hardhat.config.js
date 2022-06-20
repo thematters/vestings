@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-solhint");
 require("@nomiclabs/hardhat-etherscan");
@@ -27,6 +29,8 @@ module.exports = {
     goerli: goerliNetworkConfig(),
     bscMainnet: bscMainnetNetworkConfig(),
     bscTestnet: bscTestnetNetworkConfig(),
+    polygonMumbai: polygonMumbaiNetworkConfig(),
+    polygonMainnet: polygonMainnetNetworkConfig(),
   },
   abiExporter: {
     path: "./build/abi",
@@ -118,6 +122,46 @@ function bscTestnetNetworkConfig() {
     accounts: [accountPrivateKey],
   };
 }
+
+
+function polygonMumbaiNetworkConfig() {
+  let url = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+  let accountPrivateKey =
+    "0x0000000000000000000000000000000000000000000000000000000000000000";
+  if (process.env.POLYGON_MUMBAI_ENDPOINT) {
+    url = `${process.env.POLYGON_MUMBAI_ENDPOINT}`;
+  }
+
+  console.log({POLYGON_MUMBAI_ENDPOINT: process.env.POLYGON_MUMBAI_ENDPOINT,POLYGON_MUMBAI_PRIVATE_KEY: process.env.POLYGON_MUMBAI_PRIVATE_KEY})
+
+  if (process.env.POLYGON_MUMBAI_PRIVATE_KEY) {
+    accountPrivateKey = `${process.env.POLYGON_MUMBAI_PRIVATE_KEY}`;
+  }
+
+  return {
+    url: url,
+    accounts: [accountPrivateKey],
+  };
+}
+
+function polygonMainnetNetworkConfig() {
+  let url = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+  let accountPrivateKey =
+    "0x0000000000000000000000000000000000000000000000000000000000000000";
+  if (process.env.POLYGON_MAINNET_ENDPOINT) {
+    url = `${process.env.POLYGON_MAINNET_ENDPOINT}`;
+  }
+
+  if (process.env.POLYGON_MAINNET_PRIVATE_KEY) {
+    accountPrivateKey = `${process.env.POLYGON_MAINNET_PRIVATE_KEY}`;
+  }
+
+  return {
+    url: url,
+    accounts: [accountPrivateKey],
+  };
+}
+
 
 function getEtherscanApiKey() {
   let apiKey = "";

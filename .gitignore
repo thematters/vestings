@@ -8,3 +8,5 @@ cache
 data
 coverage*
 env
+.DS_STORE
+*.log

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -5,17 +7,23 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy(
-    "Test Token",
-    "TT",
-    "1000000000000000000000000"
-  );
+  // const Token = await ethers.getContractFactory("Token");
+  // const token = await Token.deploy(
+  //   "Test Token",
+  //   "TT",
+  //   "1000000000000000000000000"
+  // );
+  let tokenAddress = '';
+  if (process.env.HARDHAT_NETWORK === 'polygonMumbai') {
+    tokenAddress = process.env.POLYGON_MUMBAI_TOKEN;
+  } else if (process.env.HARDHAT_NETWORK === 'polygonMainnet') {
+    tokenAddress = process.env.POLYGON_MAINNET_TOKEN;
+  }
 
-  console.log("Token address:", token.address);
+  console.log("Token address:", tokenAddress);
 
   const TokenVesting = await ethers.getContractFactory("TokenVesting");
-  const tokenVesting = await TokenVesting.deploy(token.address);
+  const tokenVesting = await TokenVesting.deploy(tokenAddress);
   console.log("TokenVesting address:", tokenVesting.address);
 }
 

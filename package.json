@@ -11,6 +11,8 @@
     "flatten": "npx hardhat flatten",
     "check:format": "solhint contracts/*.sol --fix",
     "deploy:mainnet": "npx hardhat run scripts/deploy.js --network mainnet",
+    "deploy:polygonMumbai": "npx hardhat run scripts/deploy.js --network polygonMumbai",
+    "deploy:polygonMainnet": "npx hardhat run scripts/deploy.js --network polygonMainnet",
     "deploy:goerli": "npx hardhat run scripts/deploy.js --network goerli",
     "deploy:bsc:mainnet": "npx hardhat run scripts/deploy.js --network bscMainnet",
     "deploy:bsc:testnet": "npx hardhat run scripts/deploy.js --network bscTestnet",
@@ -40,6 +42,7 @@
   "homepage": "https://github.com/abdelhamidbakhta/token-vesting-contracts#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^4.1.0",
+    "dotenv": "^16.0.1",
     "prettier": "^2.3.0",
     "solc": "npm:solc@^0.8.4",
     "solidity-coverage": "^0.7.16",
